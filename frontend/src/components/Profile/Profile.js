@@ -27,9 +27,9 @@ const Profile = ({ toggleProfile, toggleChangeProfile, details }) => {
                         </thead>
                         <tbody>
 
-                            {_.map(details, (val, index) => (
-                                <tr key={index} onClick={() => (this.formSelect(val))}>
-                                    <td><img src={val.logo} style={{ width: '55px', height: '50px' }} /></td>
+                            {_.map(details, (val) => (
+                                <tr key={val._id}>
+                                    <td><img src={val.logo} alt={val.logo} style={{ width: '55px', height: '50px' }} /></td>
                                     <td>{val.name}</td>
                                     <td>{val.registration_date}</td>
                                     <td>{val.funding ? 'Yes' : 'No'}</td>
