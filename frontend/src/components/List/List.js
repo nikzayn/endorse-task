@@ -1,52 +1,100 @@
-import React, { Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import _ from 'lodash';
 
-const List = ({ information }) => {
-    return (
-        <Fragment>
-            <div className="container col-md-9">
-                <table className="table table-hover table-responsive">
-                    <thead>
-                        <tr>
-                            <th scope="col">Logo</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Registration Date</th>
-                            <th scope="col">Funding</th>
-                            <th scope="col">E-Mail</th>
-                            <th scope="col">Address - Line 1</th>
-                            <th scope="col">Address - Line 2</th>
-                            <th scope="col">City</th>
-                            <th scope="col">District</th>
-                            <th scope="col">State</th>
-                            <th scope="col">Pincode</th>
-                            <th scope="col">Claimed</th>
-                            <th scope="col">Unclaimed</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+import Form from '../Form/Form';
+import Profile from '../Profile/Profile';
 
-                        {_.map(information, (val, index) => (
-                            <tr key={index}>
-                                <td>{val.logo}</td>
-                                <td>{val.name}</td>
-                                <td>{val.registration_date}</td>
-                                <td>{val.foreign_funding_received ? 'Yes' : 'No'}</td>
-                                <td>{val.email_id}</td>
-                                <td>{_.get(val, ['address', 'line_1'])}</td>
-                                <td>{_.get(val, ['address', 'line_2'])}</td>
-                                <td>{_.get(val, ['address', 'city'])}</td>
-                                <td>{_.get(val, ['address', 'district'])}</td>
-                                <td>{_.get(val, ['address', 'state'])}</td>
-                                <td>{_.get(val, ['address', 'pincode'])}</td>
-                                <td>{val.claimed ? <button>VIEW PROFILE</button> : 'No'}</td>
-                                <td>{val.unclaimed ? <button><a href="https://www.letsendorse.com/ngoForm" target="_blank">CLAIM</a></button> : 'No'}</td>
-                            </tr>))}
+class List extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            toggleForm: false,
+            toggleProfile: false,
+            formData: [],
+            value: '',
+        }
+    }
 
-                    </tbody>
-                </table>
-            </div >
-        </Fragment >
-    );
+    //Modal form
+    toggleChangeForm = () => {
+        this.setState({
+            toggleForm: !this.state.toggleForm
+        })
+    }
+
+    //Modal Profile
+    toggleChangeProfile = () => {
+        this.setState({
+            toggleProfile: !this.state.toggleProfile
+        })
+    }
+
+    formChange = (e) => {
+        this.setState({
+            value: e.target.value
+        })
+    }
+
+    formSelect = (val) => {
+        this.setState(prevState => Object.assign({}, prevState, {
+            formData: val
+        }))
+    }
+
+    render() {
+        const { information } = this.props;
+        return (
+            <Fragment>
+                <div className="container center">
+                    <table className="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Logo</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Registration Date</th>
+                                <th scope="col">Claimed</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {_.map(information, (val, index) => (
+                                <tr key={index} onClick={() => (this.formSelect(val))}>
+                                    <td><img src={val.logo} style={{ width: '55px', height: '50px' }} /></td>
+                                    <td>{val.name}</td>
+                                    <td>{val.registration_date}</td>
+                                    <td>
+                                        {!val.claimed ?
+                                            <button class="btn btn-primary" onClick={() => { this.toggleChangeForm(); this.formSelect(val); }}>CLAIM</button>
+                                            :
+                                            <button class="btn btn-warning" onClick={() => { this.toggleChangeProfile(); }}>VIEW PROFILE</button>
+                                        }
+                                    </td>
+                                </tr>))}
+                        </tbody>
+                    </table>
+                    {
+                        this.state.toggleForm ?
+                            <Form
+                                toggleForm={this.state.toggleForm}
+                                toggleChangeForm={this.toggleChangeForm}
+                                updateVal={this.formChange}
+                                result={this.state.formData}
+                            /> :
+                            null
+                    }
+                    {
+                        this.state.toggleProfile ?
+                            <Profile
+                                toggleProfile={this.state.toggleProfile}
+                                toggleChangeProfile={this.toggleChangeProfile}
+                                details={this.props.information}
+                            /> :
+                            null
+                    }
+                </div >
+            </Fragment >
+        );
+    }
 }
 
 export default List;
