@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import axios from 'axios';
 import _ from 'lodash';
@@ -54,7 +54,7 @@ class Filter extends Component {
 
     }
 
-    componentDidMount() {
+    getList() {
         axios.get('http://localhost:8080/list')
             .then(response => {
                 const results = response.data;
@@ -80,6 +80,10 @@ class Filter extends Component {
             .catch(err => console.log(err))
     }
 
+    componentDidMount() {
+        this.getList()
+    }
+
     filterData(data, filter) {
         const items = this.fuseIns.search(filter.name).map(it => it.item._id);
         return data.filter(item => {
@@ -95,7 +99,7 @@ class Filter extends Component {
                 }
                 else if (prop === 'city' && _.get(item, ['address', 'city']) !== filter[prop] && filter[prop].length !== 0) {
                     ok = false;
-                } else if (prop === 'name' && filter[prop].length > 0 && !items.includes(item.id)) {
+                } else if (prop === 'name' && filter[prop].length > 0 && !items.includes(item._id)) {
                     ok = false;
                 }
             }
@@ -107,9 +111,8 @@ class Filter extends Component {
     render() {
         const { funding, states, filter, district, city, name } = this.state;
         return (
-            <div>
-                <div className="form-inline search-bar d-flex justify-content-center md-form form-sm p-4">
-
+            <Fragment>
+                <div className="form-inline d-flex search-bar justify-content-center p-4">
                     {/* NGO Name */}
                     <input
                         className="form-control form-control-sm ml-3 col-md-4"
@@ -120,18 +123,21 @@ class Filter extends Component {
                         onChange={(e) => this.handleChange('name', e.target.value)}
                     />
 
-
                     {/* Funding Filter */}
-                    <input
-                        className="ml-3"
-                        type="checkbox"
-                        value={funding}
-                        onChange={() => { this.handleChange('funding', !this.state.filter.funding) }}
-                    />Funding
+                    <label className="container-checkbox">Funding
+                        <input
+                            className="m-2 form-control-lg"
+                            style={{ display: 'none' }}
+                            type="checkbox"
+                            checked={funding}
+                            onChange={() => { this.handleChange('funding', !this.state.filter.funding) }}
+                        />
+                        <span className="checkmark"></span>
+                    </label>
 
 
                     {/* States Filter */}
-                    <select className="ml-3" value={filter.state} onChange={(e) => { this.handleChange('state', e.target.value) }}>
+                    <select className="ml-3 form-control-lg" value={filter.state} onChange={(e) => { this.handleChange('state', e.target.value) }}>
                         <option value="">States</option>
                         {_.map(states, data => (
                             <option key={data} value={data}>{data}</option>
@@ -140,7 +146,7 @@ class Filter extends Component {
                     </select>
 
                     {/* District Filter */}
-                    <select className="ml-3" value={filter.district} onChange={(e) => { this.handleChange('district', e.target.value) }}>
+                    <select className="ml-3 form-control-lg" value={filter.district} onChange={(e) => { this.handleChange('district', e.target.value) }}>
                         <option value="">Districts</option>
                         {_.map(district, data => (
                             <option key={data} value={data}>{data}</option>
@@ -149,7 +155,7 @@ class Filter extends Component {
                     </select>
 
                     {/* City Filter */}
-                    <select className="ml-3" value={filter.city} onChange={(e) => { this.handleChange('city', e.target.value) }}>
+                    <select className="ml-3 form-control-lg" value={filter.city} onChange={(e) => { this.handleChange('city', e.target.value) }}>
                         <option value="">Cities</option>
                         {_.map(city, data => (
                             <option key={data} value={data}>{data}</option>
@@ -161,8 +167,10 @@ class Filter extends Component {
                 <br />
                 <br />
                 <br />
-                <List information={this.state.filteredValues} />
-            </div >
+                <List information={this.state.filteredValues} listUpdated={() => {
+                    this.getList();
+                }} />
+            </Fragment>
         );
     }
 }
