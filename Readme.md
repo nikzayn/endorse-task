@@ -25,7 +25,7 @@ sudo docker-compose up
 ### Issues
 - Have not written the test cases for frontend and backend
 - Code structuring is somewhat okay
-- Could have used the  ```Context Api``` for better UI performance
+- Could have used the  ```Context Api``` for better UI performance.
 
 ### Edge Cases
 - Filter the search bar using fuse.js makes it possible to search faster in real-time
