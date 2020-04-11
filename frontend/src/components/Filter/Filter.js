@@ -6,6 +6,8 @@ import Fuse from 'fuse.js';
 
 import List from '../List/List';
 
+import './Filter.css';
+
 const options = {
     isCaseSensitive: false,
     findAllMatches: false,
@@ -22,7 +24,7 @@ const options = {
     ]
 };
 
-class SearchBar extends Component {
+class Filter extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -53,9 +55,9 @@ class SearchBar extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:8080/search')
+        axios.get('http://localhost:8080/list')
             .then(response => {
-                const results = response.data.data;
+                const results = response.data;
                 this.fuseIns = new Fuse(results, options);
 
                 this.setState({
@@ -79,14 +81,11 @@ class SearchBar extends Component {
     }
 
     filterData(data, filter) {
-        console.log(filter);
-
-        const items = this.fuseIns.search(filter.name).map(it => it.item.id);
-        console.log(items)
+        const items = this.fuseIns.search(filter.name).map(it => it.item._id);
         return data.filter(item => {
             let ok = true;
             for (let prop in filter) {
-                if (prop === 'funding' && item['foreign_funding_received'] !== filter[prop] && filter[prop]) {
+                if (prop === 'funding' && item['funding'] !== filter[prop] && filter[prop]) {
                     ok = false;
                 } else if (prop === 'state' && _.get(item, ['address', 'state']) !== filter[prop] && filter[prop].length !== 0) {
                     ok = false;
@@ -106,13 +105,10 @@ class SearchBar extends Component {
 
 
     render() {
-        const { values, funding, states, filter, district, city, name } = this.state;
-
-
-
+        const { funding, states, filter, district, city, name } = this.state;
         return (
             <div>
-                <div className="form-inline d-flex justify-content-center md-form form-sm mt-3">
+                <div className="form-inline search-bar d-flex justify-content-center md-form form-sm p-4">
 
                     {/* NGO Name */}
                     <input
@@ -127,6 +123,7 @@ class SearchBar extends Component {
 
                     {/* Funding Filter */}
                     <input
+                        className="ml-3"
                         type="checkbox"
                         value={funding}
                         onChange={() => { this.handleChange('funding', !this.state.filter.funding) }}
@@ -134,7 +131,7 @@ class SearchBar extends Component {
 
 
                     {/* States Filter */}
-                    <select value={filter.state} onChange={(e) => { this.handleChange('state', e.target.value) }}>
+                    <select className="ml-3" value={filter.state} onChange={(e) => { this.handleChange('state', e.target.value) }}>
                         <option value="">States</option>
                         {_.map(states, data => (
                             <option key={data} value={data}>{data}</option>
@@ -143,7 +140,7 @@ class SearchBar extends Component {
                     </select>
 
                     {/* District Filter */}
-                    <select value={filter.district} onChange={(e) => { this.handleChange('district', e.target.value) }}>
+                    <select className="ml-3" value={filter.district} onChange={(e) => { this.handleChange('district', e.target.value) }}>
                         <option value="">Districts</option>
                         {_.map(district, data => (
                             <option key={data} value={data}>{data}</option>
@@ -152,7 +149,7 @@ class SearchBar extends Component {
                     </select>
 
                     {/* City Filter */}
-                    <select value={filter.city} onChange={(e) => { this.handleChange('city', e.target.value) }}>
+                    <select className="ml-3" value={filter.city} onChange={(e) => { this.handleChange('city', e.target.value) }}>
                         <option value="">Cities</option>
                         {_.map(city, data => (
                             <option key={data} value={data}>{data}</option>
@@ -170,4 +167,4 @@ class SearchBar extends Component {
     }
 }
 
-export default SearchBar;
+export default Filter;
