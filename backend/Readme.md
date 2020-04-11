@@ -16,7 +16,9 @@
 - Updating the current data on claim update - /claim
 
 ### Environment Variables
+
 | Enivironment Variable           | Description                                                                                     |
+| ------------------------------- | ----------------------------------------------------------------------------------------------- |
 | **DATABASE**                    | All information related to database are stored in sample.env file                               |
 
 ### Technologies
