@@ -1,82 +1,82 @@
 module.exports = [
     {
-        "logo": "https://www.logo-company.in/logo/2.jpg",
+        "logo": "https://www.thebetterindia.com/wp-content/uploads/2009/01/crylogo-wit-standup.jpg",
         "name": "CRY",
-        "registration_date": "12-12-2001",
+        "registration_date": "02-04-1979",
         "funding": true,
-        "email_id": "dummy_endorse@gmail.com",
+        "email_id": "cry@gmail.com",
         "address": {
-            "line_1": "xyz flat 233",
-            "line_2": "JP Nagar",
-            "city": "Bengaluru",
-            "district": "Bengaluru Urban",
-            "state": "Karnataka",
-            "pincode": "560078"
-        },
-        "claimed": false
-    },
-    {
-        "logo": "https://image.shutterstock.com/image-vector/ngo-logo-children-foundation-company-260nw-1516420154.jpg",
-        "name": "Helping kids",
-        "registration_date": "12-12-2001",
-        "funding": true,
-        "email_id": "dummy_endorse@gmail.com",
-        "address": {
-            "line_1": "S1 ThoughtCell",
-            "line_2": "JP Nagar",
-            "city": "Chennai",
-            "district": "Bengaluru Urban",
-            "state": "Tamil Nadu",
-            "pincode": "560078"
-        },
-        "claimed": false
-    },
-    {
-        "logo": "https://thelogocompany.net/wp-content/uploads/2016/10/people-helping-people.jpg",
-        "name": "Aisha Foundation",
-        "registration_date": "12-12-2001",
-        "funding": false,
-        "email_id": "dummy_endorse@gmail.com",
-        "address":
-        {
-            "line_1": "21 Main Road",
-            "line_2": "Building No. 4",
-            "city": "Thrissur",
-            "district": "Thrissur",
-            "state": "Kerala",
-            "pincode": "560078"
-        },
-        "claimed": false
-    },
-    {
-        "logo": "https://www.logodesignteam.com/images/portfolio-images/non-profit-organisations-logo-design/ngo-non-profit-organisations-logo-design1.jpg",
-        "name": "Girl Foundation",
-        "registration_date": "12-12-2001",
-        "funding": false,
-        "email_id": "dummy_endorse@gmail.com",
-        "address": {
-            "line_1": "Model Town",
-            "line_2": "JP Nagar",
+            "line_1": "CRY – Child Rights and You, 189/A",
+            "line_2": "Anand Estate, Sane Guruji Marg",
             "city": "Mumbai",
             "district": "Mumbai",
             "state": "Maharashtra",
-            "pincode": "560078"
+            "pincode": "400011"
         },
-        "claimed": true
+        "claimed": false
     },
     {
-        "logo": "https://image.shutterstock.com/image-vector/child-care-center-logo-design-260nw-400260754.jpg",
-        "name": "SGBS Trust",
+        "logo": "https://4.bp.blogspot.com/-1qX3q47Uwp4/VzB4zz114oI/AAAAAAABQlQ/RJWe6nOJTv0smFi9r_xW5Kkz7z2JjLtEQCLcB/s320/Smile%2Bfoundation.jpg",
+        "name": "Smile Foundation",
         "registration_date": "12-12-2001",
-        "funding": false,
+        "funding": true,
         "email_id": "dummy_endorse@gmail.com",
         "address": {
-            "line_1": "S1 ThoughtCell",
-            "line_2": "JP Nagar",
-            "city": "Goa Velha",
-            "district": "Nagar",
-            "state": "Goa",
-            "pincode": "560078"
+            "line_1": "161 B/4, 3rd Floor",
+            "line_2": "Gulmohar House, Yusuf Sarai Community Centre",
+            "city": "New Delhi",
+            "district": "South Delhi",
+            "state": "Delhi",
+            "pincode": "110049"
+        },
+        "claimed": false
+    },
+    {
+        "logo": "https://media.glassdoor.com/sqll/306891/teach-for-india-squarelogo-1539066922302.png",
+        "name": "Teach for India",
+        "registration_date": "02-04-2007",
+        "funding": false,
+        "email_id": "teach_for_india@gmail.com",
+        "address":
+        {
+            "line_1": "Teach For India Godrej One, 2nd Floor",
+            "line_2": "Pirojshanagar, Eastern Express Highway Vikhroli (East)",
+            "city": "Mumbai",
+            "district": "Mumbai",
+            "state": "Maharashtra",
+            "pincode": "400079"
+        },
+        "claimed": false
+    },
+    {
+        "logo": "https://media.glassdoor.com/sqll/512067/helpage-india-squarelogo-1432219269237.png",
+        "name": "HelpAge India",
+        "registration_date": "05-05-1978",
+        "funding": true,
+        "email_id": "help_age_india@gmail.com",
+        "address": {
+            "line_1": "C–14",
+            "line_2": "Qutab Institutional Area",
+            "city": "New Delhi",
+            "district": "South Delhi",
+            "state": "Delhi",
+            "pincode": "110016"
+        },
+        "claimed": false
+    },
+    {
+        "logo": "https://pbs.twimg.com/profile_images/1069679654720671745/6vIKLPER_400x400.jpg",
+        "name": "Pratham",
+        "registration_date": "07-06-1994",
+        "funding": false,
+        "email_id": "pratham@gmail.com",
+        "address": {
+            "line_1": "B- 4/58, Safdarjung Enclave 2nd Floor",
+            "line_2": "Delhi Registered Office",
+            "city": "New Delhi",
+            "district": "South Delhi",
+            "state": "Delhi",
+            "pincode": "110029"
         },
         "claimed": false
     }
