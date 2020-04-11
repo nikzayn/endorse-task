@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import _ from 'lodash';
 
 import Form from '../Form/Form';
-import Profile from '../Profile/Profile';
 
 class List extends Component {
     constructor(props) {
@@ -12,22 +11,25 @@ class List extends Component {
             toggleProfile: false,
             formData: [],
             value: '',
+            updateClaim: false,
         }
     }
 
     //Modal form
-    toggleChangeForm = () => {
+    toggleChangeForm = (val, updateClaim) => {
         this.setState({
-            toggleForm: !this.state.toggleForm
+            toggleForm: !this.state.toggleForm,
+            formData: val,
+            updateClaim,
         })
     }
 
-    //Modal Profile
-    toggleChangeProfile = () => {
+    dismiss = () => {
         this.setState({
-            toggleProfile: !this.state.toggleProfile
+            toggleForm: false,
         })
     }
+
 
     formChange = (e) => {
         this.setState({
@@ -35,14 +37,9 @@ class List extends Component {
         })
     }
 
-    formSelect = (val) => {
-        this.setState(prevState => Object.assign({}, prevState, {
-            formData: val
-        }))
-    }
-
     render() {
         const { information } = this.props;
+        const isDesktop = window.innerWidth > 500 ? true : false;
         return (
             <Fragment>
                 <div className="container center">
@@ -51,22 +48,22 @@ class List extends Component {
                             <tr>
                                 <th scope="col">Logo</th>
                                 <th scope="col">Name</th>
-                                <th scope="col">Registration Date</th>
+                                {isDesktop && (<th scope="col">Registration Date</th>)}
                                 <th scope="col">Claimed</th>
                             </tr>
                         </thead>
                         <tbody>
 
-                            {_.map(information, (val, index) => (
-                                <tr key={index} onClick={() => (this.formSelect(val))}>
-                                    <td><img src={val.logo} style={{ width: '55px', height: '50px' }} /></td>
+                            {_.map(information, (val) => (
+                                <tr key={val._id}>
+                                    <td><img src={val.logo} alt={val.logo} style={{ width: '55px', height: '50px' }} /></td>
                                     <td>{val.name}</td>
-                                    <td>{val.registration_date}</td>
+                                    {isDesktop && (<td>{val.registration_date}</td>)}
                                     <td>
                                         {!val.claimed ?
-                                            <button class="btn btn-primary" onClick={() => { this.toggleChangeForm(); this.formSelect(val); }}>CLAIM</button>
+                                            <button className="btn btn-primary" onClick={() => { this.toggleChangeForm(val, true); }}>CLAIM</button>
                                             :
-                                            <button class="btn btn-warning" onClick={() => { this.toggleChangeProfile(); }}>VIEW PROFILE</button>
+                                            <button className="btn btn-warning" onClick={() => { this.toggleChangeForm(val, false); }}>VIEW PROFILE</button>
                                         }
                                     </td>
                                 </tr>))}
@@ -78,16 +75,12 @@ class List extends Component {
                                 toggleForm={this.state.toggleForm}
                                 toggleChangeForm={this.toggleChangeForm}
                                 updateVal={this.formChange}
-                                result={this.state.formData}
-                            /> :
-                            null
-                    }
-                    {
-                        this.state.toggleProfile ?
-                            <Profile
-                                toggleProfile={this.state.toggleProfile}
-                                toggleChangeProfile={this.toggleChangeProfile}
-                                details={this.props.information}
+                                result={{ formData: this.state.formData, updateClaim: this.state.updateClaim }}
+                                submitted={() => {
+                                    this.props.listUpdated()
+                                    this.dismiss();
+                                }}
+                                dismiss={this.dismiss}
                             /> :
                             null
                     }
