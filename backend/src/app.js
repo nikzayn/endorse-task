@@ -1,5 +1,6 @@
 const express = require('express');
 const mongodb = require('mongodb').MongoClient;
+const ObjectID = require('mongodb').ObjectID;
 const cors = require('cors');
 const dotenv = require('dotenv');
 
@@ -34,11 +35,9 @@ app.get('/list', (req, res) => {
 
 
 app.post('/claim', (req, res) => {
-    console.log(req.body.claimed);
     const collection = db.collection('ngo');
-    collection.updateOne({ 'claimed': false }, { $set: { claimed: true } }, function (err, result) {
-        console.log("Updated the document with the field a equal to 2");
-        console.log(result);
+    collection.updateOne({ '_id': ObjectID(req.body._id) }, { $set: { claimed: true } }, function (err, result) {
+        res.send(result);
     });
 
 })
