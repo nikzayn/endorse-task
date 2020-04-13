@@ -18,6 +18,7 @@
 
 ### Usage
 ```
+git clone https://github.com/nikzayn/endorse-task.git
 cp sample.env .env
 sudo docker-compose build
 sudo docker-compose up
