@@ -1,5 +1,5 @@
 # Let's Endorse Task
-- Task is to create a mern stack application which gives the list og ngo details
+- Task is to create a mern stack application which gives the list of ngo details
 
 ## Overview
 - Design Thoughts
@@ -15,6 +15,14 @@
 ### System Requirements
 - Docker
 - Docker Compose
+- ReactJS
+- NodeJS
+- MongoDB
+
+## Data Dump
+- I have built a dummy data file in ```backend/src/dummy.js```.
+- Above is the dummy data that I am using in my web app.
+- I am using Docker to dump the dummy data into mongodb instance, so docker can automatically setup the whole environment for it.
 
 ### Usage
 ```
