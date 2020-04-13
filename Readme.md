@@ -18,6 +18,7 @@
 
 ### Usage
 ```
+cp sample.env .env
 sudo docker-compose build
 sudo docker-compose up
 ```
